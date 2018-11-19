@@ -13,8 +13,6 @@ class H5:
         ctxt = []
         c = 0
         k, j = self.keysetup(key)
-        klen = len(k)
-        o = j
         for char in chars:
             j = k[j]
             k[j] = (k[j] + k[c]) % 26
@@ -28,7 +26,6 @@ class H5:
         ctxt = []
         c = 0
         k, j = self.keysetup(key)
-        klen = len(k)
         for char in chars:
             j = k[j]
             k[j] = (k[c] + k[j]) % 26
