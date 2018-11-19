@@ -17,7 +17,7 @@ class H5:
         o = j
         for char in chars:
             j = k[j]
-            k[j] = (k[c] + k[j] + k[k[o]]) % 26
+            k[j] = (k[j] + k[c]) % 26
             output = (k[j] + k[k[j]]) % 26
             sub = (output + (ord(char) - 65)) % 26
             ctxt.append(chr(sub + 65))
@@ -31,8 +31,8 @@ class H5:
         klen = len(k)
         for char in chars:
             j = k[j]
-            k[j] = (k[c] + k[j] + k[k[j]]) % 26
-            output = (k[k[j]] + k[j]) % 26
+            k[j] = (k[c] + k[j]) % 26
+            output = (k[j] + k[k[j]]) % 26
             sub = ((ord(char) - 65) - output) % 26
             ctxt.append(chr(sub + 65))
             c = (c + 1) % 26

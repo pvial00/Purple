@@ -85,7 +85,7 @@ int main(int argc, char *argv[]) {
             bsize = sizeof(block);
             for (int b = 0; b < bsize; b++) {
 		j = k[j];
-                k[j] = (k[c] + k[j] + k[k[j]]) & 0xff;
+                k[j] = (k[c] + k[j]) & 0xff;
 		output = (k[k[j]] + k[j]) & 0xff;
                 block[b] = block[b] ^ output;
                 c = (c + 1) & 0xff;
@@ -110,7 +110,7 @@ int main(int argc, char *argv[]) {
             bsize = sizeof(block);
             for (int b = 0; b < bsize; b++) {
 		j = k[j];
-                k[j] = (k[c] + k[j] + k[k[j]]) & 0xff;
+                k[j] = (k[c] + k[j]) & 0xff;
 		output = (k[k[j]] + k[j]) & 0xff;
                 block[b] = block[b] ^ output;
                 c = (c + 1) & 0xff;

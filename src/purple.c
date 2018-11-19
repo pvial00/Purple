@@ -33,7 +33,7 @@ unsigned char *purple_crypt(unsigned char *data, unsigned char *key, unsigned ch
    c = 0;
    for (int x = 0; x < datalen; x++) {
        j = k[j];
-       k[j] = (k[c] + k[j] + k[k[j]]) & 0xff;
+       k[j] = (k[c] + k[j]) & 0xff;
        output = (k[k[j]] + k[j]) & 0xff;
        data[x] = data[x] ^ output;
        c = (c + 1) & 0xff;
