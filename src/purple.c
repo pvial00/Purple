@@ -12,7 +12,7 @@ unsigned char *purple_crypt(unsigned char *data, unsigned char *key, unsigned ch
     int output;
     for (c=0; c < keylen; c++) {
         k[c % keylen] = (k[c % keylen] + key[c % keylen]) & 0xff;
-        j = (j + k[c % keylen]) & 0xff; }
+        j = (j + k[c % keylen] + c) & 0xff; }
     for (c = 0; c < 256; c++) {
         k[j] = (k[c % keylen] + k[j]) & 0xff;
         j = k[j]; }
