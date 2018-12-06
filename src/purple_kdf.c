@@ -22,7 +22,7 @@ unsigned char * kdf (unsigned char *password, unsigned char *key, unsigned char 
     int out;
     for (n=0; n < keylen; n++) {
         kdf_k[n % keylen] = (kdf_k[n % keylen] + key[n % keylen]) & 0xff;
-        t = (t + kdf_k[n % keylen] + c) & 0xff; }
+        t = (t + kdf_k[n % keylen] + n) & 0xff; }
     for (n = 0; n < 256; n++) {
         kdf_k[t] = (kdf_k[n % keylen] + kdf_k[t]) & 0xff;
         t = kdf_k[t]; }
