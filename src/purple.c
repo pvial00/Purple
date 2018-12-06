@@ -14,20 +14,20 @@ unsigned char *purple_crypt(unsigned char *data, unsigned char *key, unsigned ch
         k[c % keylen] = (k[c % keylen] + key[c % keylen]) & 0xff;
         j = (j + k[c % keylen]) & 0xff; }
     for (c = 0; c < 256; c++) {
-        k[c % keylen] = (k[c % keylen] + j) & 0xff;
-        j = (j + k[c % keylen] + c) & 0xff; }
+        k[j] = (k[c % keylen] + k[j]) & 0xff;
+        j = k[j]; }
     for (c = 0; c < noncelen; c++) {
-        k[c % noncelen] = (k[c % noncelen] + nonce[c]) & 0xff;
+        k[c] = (k[c % noncelen] + nonce[c]) & 0xff;
         j = (j + k[c % noncelen]) & 0xff; }
     for (c = 0; c < 256; c++) {
-        k[c % keylen] = (k[c % keylen] + j) & 0xff;
-        j = (j + k[c % keylen] + c) & 0xff; }
+        k[j] = (k[c % keylen] + k[j]) & 0xff;
+        j = k[j]; }
     for (c = 0; c < diff; c++) {
         k[c+keylen] = (k[c] + k[(c + 1) % diff] + j) & 0xff;
-	j = (j + k[c % diff] + c) & 0xff; }
+	j = (k[j] + k[c % diff]) & 0xff; }
     for (c = 0; c < 256; c++) {
-        k[c] = (k[c] + k[(c + m) & 0xff] + j) & 0xff;
-        j = (j + k[c] + c) & 0xff; }
+        k[c] = (k[c] + k[(c + m) & 0xff] + k[j]) & 0xff;
+        j = (j + k[c]) & 0xff; }
 
 
    c = 0;

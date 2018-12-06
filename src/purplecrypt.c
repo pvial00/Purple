@@ -14,23 +14,23 @@ void keysetup(unsigned char *key, unsigned char *nonce, int keylen, int noncelen
     int diff = 256 - keylen;
     int m = 256 / 2;
     for (c=0; c < keylen; c++) {
-        k[c] = (k[c] + key[c]) & 0xff;
-        j = (j + k[c]) & 0xff; }
+        k[c % keylen] = (k[c % keylen] + key[c % keylen]) & 0xff;
+        j = (j + k[c % keylen]) & 0xff; }
     for (c = 0; c < 256; c++) {
-        k[c % keylen] = (k[c % keylen] + j) & 0xff;
-        j = (j + k[c % keylen] + c) & 0xff; }
+        k[j] = (k[c % keylen] + k[j]) & 0xff;
+        j = k[j]; }
     for (c = 0; c < noncelen; c++) {
-        k[c] = (k[c] + nonce[c]) & 0xff;
-        j = (j + k[c]) & 0xff; }
+        k[c] = (k[c % noncelen] + nonce[c]) & 0xff;
+        j = (j + k[c % noncelen]) & 0xff; }
     for (c = 0; c < 256; c++) {
-        k[c % keylen] = (k[c % keylen] + j) & 0xff;
-        j = (j + k[c % keylen] + c) & 0xff; }
+        k[j] = (k[c % keylen] + k[j]) & 0xff;
+        j = k[j]; }
     for (c = 0; c < diff; c++) {
         k[c+keylen] = (k[c] + k[(c + 1) % diff] + j) & 0xff;
-	j = (j + k[c % diff] + c) & 0xff; }
+        j = (k[j] + k[c % diff]) & 0xff; }
     for (c = 0; c < 256; c++) {
-        k[c] = (k[c] + k[(c + m) & 0xff] + j) & 0xff; 
-        j = (j + k[c] + c) & 0xff; }
+        k[c] = (k[c] + k[(c + m) & 0xff] + k[j]) & 0xff;
+        j = (j + k[c]) & 0xff; }
 }
 
 void usage() {
