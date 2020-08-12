@@ -41,3 +41,18 @@ class H5N:
             ctxt.append(chr(sub + 65))
             c = (c + 1) % 26
         return "".join(ctxt)
+
+    def kdf(self, key, iterations=6666666):
+        k = [0] * 26
+        j = 0
+        for c, byte in enumerate(key):
+            k[c] = (k[c] + (ord(byte) - 65)) % 26
+            j = (j + (ord(byte) - 65)) % 26
+        c = 0
+        for r in range(iterations):
+            j = k[j]
+            k[j] = (k[j] + k[c]) % 26
+            c = (c + 1) % 26
+        for x in range(len(k)):
+            k[x] = chr(k[x] + 65)
+        return "".join(k)

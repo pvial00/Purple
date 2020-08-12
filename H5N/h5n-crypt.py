@@ -33,6 +33,8 @@ except IndexError as ier:
     nonce = input("Enter nonce: ")
 
 h5n = H5N()
+key = h5n.kdf(key)
+print(key)
 
 start = time.time()
 data = infile.read()
