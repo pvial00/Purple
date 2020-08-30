@@ -45,9 +45,11 @@ class H5N:
     def kdf(self, key, iterations=6666666):
         k = [0] * 26
         j = 0
-        for c, byte in enumerate(key):
+        c = 0
+        for byte in key:
             k[c] = (k[c] + (ord(byte) - 65)) % 26
             j = (j + (ord(byte) - 65)) % 26
+            c = (c + 1) % 26
         c = 0
         for r in range(iterations):
             j = k[j]

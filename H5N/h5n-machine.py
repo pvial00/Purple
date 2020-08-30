@@ -9,7 +9,6 @@ text = input("Enter message: ")
 key = input("Enter key: ")
 nonce = input("Enter nonce: ")
 key = h5n.kdf(key)
-print(key)
 if mode == "e":
     c = h5n.encrypt(text, key, nonce)
     print(c)
